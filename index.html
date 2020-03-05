@@ -18,7 +18,7 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./assets//css/style.css" />
     <title>Work Day Scheduler</title>
   </head>
 
@@ -30,6 +30,34 @@
     </header>
     <div class="container">
       <!-- Timeblocks go here -->
+      <!-- On rows -->
+      <table class="table table-sm table-hover table-dark" width="100%">
+        <thead>
+          <tr>
+            <th scope="col" width="10%">Time</th>
+            <th scope="col" width="80%">Event</th>
+            <th scope="col" width="10%">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- On cells (`td` or `th`) -->
+          <tr>
+            <td class="table-secondary">...</td>
+            <td class="table-secondary"><input type="text" width="100%" /></td>
+            <td class="table-secondary">...</td>
+          </tr>
+          <tr>
+            <td class="bg-success">...</td>
+            <td class="bg-success">...</td>
+            <td class="bg-success">...</td>
+          </tr>
+          <tr>
+            <td class="bg-danger">...</td>
+            <td class="bg-danger">...</td>
+            <td class="bg-danger">...</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
