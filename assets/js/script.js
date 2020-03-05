@@ -3,6 +3,8 @@ $(document).ready(function() {
   var timeUse = [9, 10, 11, 12, 1, 2, 3, 4, 5];
   var slots = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   var selected;
+  var dataObject = { data: "", timeOfevent: "" };
+
   var createRow = function(data) {
     // Create a new table row element
     var tRow;
@@ -49,23 +51,52 @@ $(document).ready(function() {
     //alert("index is:" + index);
 
     var valueButton = $(this).attr("data-letter");
-    for (var i = 0; i < timeUse.length; i++) {
-      if (timeUse[i] === parseInt(valueButton)) {
-        selected = slots[i];
-        alert("Selected is: " + selected);
+    alert($(this).text());
+    if ($(this).text() === "Edit") {
+      var lastData = JSON.parse(localStorage.getItem("value"));
+      alert(lastData.data);
+      $(".event")
+        .eq(3)
+        .text("hard coding");
+      for (var i = 0; i < timeUse.length; i++) {
+        if (timeUse[i] === parseInt(valueButton)) {
+          selected = slots[i];
+          alert("Selected is: " + selected);
+        }
       }
-    }
-    var valueButton1 = inputBox.attr("data-text");
-    var valueText = $(".event")
-      .first()
-      .attr("data-text");
-    alert("button" + valueButton);
-    alert("input box" + valueButton1);
-    alert("first child" + valueText);
+      $(".event")
+        .eq(selected)
+        .attr("disabled", false);
+      $(this).text("Save");
+    } else if ($(this).text() === "Save") {
+      var data = $(".event")
+        .eq(selected)
+        .val();
+      var timeOfevent = valueButton;
 
-    $(".event")
-      .eq(selected)
-      .attr("disabled", false);
-    $(this).text("Save");
+      alert("Inputted data is: " + data);
+      dataObject.data += data;
+      dataObject.timeOfevent += timeOfevent;
+
+      alert(
+        "Data stored in object is: " + dataObject.data + dataObject.timeOfevent
+      );
+      localStorage.setItem("value", JSON.stringify(dataObject));
+
+      var lastData = JSON.parse(localStorage.getItem("value"));
+      alert("fIRST DATA ONLY." + lastData.data + "And" + lastData.timeOfevent);
+      $(".event")
+        .eq(selected)
+        .attr("disabled", true);
+      $(this).text("Edit");
+    }
+
+    // var valueButton1 = inputBox.attr("data-text");
+    // var valueText = $(".event")
+    //   .first()
+    //   .attr("data-text");
+    // alert("button" + valueButton);
+    // alert("input box" + valueButton1);
+    // alert("first child" + valueText);
   });
 });
