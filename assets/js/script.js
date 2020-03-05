@@ -1,13 +1,15 @@
 $(document).ready(function() {
+  var inputBox;
+  var timeUse = [9, 10, 11, 12, 1, 2, 3, 4, 5];
+  var slots = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  var selected;
   var createRow = function(data) {
     // Create a new table row element
-    var tRow = $("<tr>");
+    var tRow;
 
     var letterBtn;
 
-    var inputBox;
     var textEvent;
-    var timeUse = [9, 10, 11, 12, 1, 2, 3, 4, 5];
 
     for (var i = 0; i < timeUse.length; i++) {
       //tRow = $("<tr>");
@@ -20,7 +22,7 @@ $(document).ready(function() {
       //   inputBox.attr("readonly", false);
       inputBox.attr("disabled", true);
       inputBox.attr("data-text", timeUse[i]);
-
+      //alert("data text is " + inputBox.attr("data-text"));
       letterBtn = $("<button>");
       letterBtn.addClass("btn btn-success btn-choice");
       letterBtn.attr("data-letter", timeUse[i]);
@@ -39,4 +41,31 @@ $(document).ready(function() {
     }
   };
   createRow();
+
+  $(".btn").on("click", function() {
+    //var element = event.target;
+
+    //  var index = element.getAttribute("data-letter");
+    //alert("index is:" + index);
+
+    var valueButton = $(this).attr("data-letter");
+    for (var i = 0; i < timeUse.length; i++) {
+      if (timeUse[i] === parseInt(valueButton)) {
+        selected = slots[i];
+        alert("Selected is: " + selected);
+      }
+    }
+    var valueButton1 = inputBox.attr("data-text");
+    var valueText = $(".event")
+      .first()
+      .attr("data-text");
+    alert("button" + valueButton);
+    alert("input box" + valueButton1);
+    alert("first child" + valueText);
+
+    $(".event")
+      .eq(selected)
+      .attr("disabled", false);
+    $(this).text("Save");
+  });
 });
