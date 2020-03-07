@@ -187,30 +187,32 @@ $(document).ready(function() {
 
   function inputValues() {
     storageData = JSON.parse(localStorage.getItem("storedData"));
-    $(".event")
-      .eq(0)
-      .val(storageData.one);
-    $(".event")
-      .eq(1)
-      .val(storageData.two);
-    $(".event")
-      .eq(2)
-      .val(storageData.three);
-    $(".event")
-      .eq(3)
-      .val(storageData.four);
-    $(".event")
-      .eq(4)
-      .val(storageData.nine);
-    $(".event")
-      .eq(5)
-      .val(storageData.ten);
-    $(".event")
-      .eq(6)
-      .val(storageData.eleven);
-    $(".event")
-      .eq(7)
-      .val(storageData.twelve);
+    if (storageData) {
+      $(".event")
+        .eq(0)
+        .val(storageData.one);
+      $(".event")
+        .eq(1)
+        .val(storageData.two);
+      $(".event")
+        .eq(2)
+        .val(storageData.three);
+      $(".event")
+        .eq(3)
+        .val(storageData.four);
+      $(".event")
+        .eq(4)
+        .val(storageData.nine);
+      $(".event")
+        .eq(5)
+        .val(storageData.ten);
+      $(".event")
+        .eq(6)
+        .val(storageData.eleven);
+      $(".event")
+        .eq(7)
+        .val(storageData.twelve);
+    }
   }
 
   function saveData() {
