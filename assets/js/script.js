@@ -4,6 +4,9 @@ $(document).ready(function() {
   var slots = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   var selected;
   var dataObject = { data: "", timeOfevent: "" };
+  var sch = [];
+  var data;
+  var timeOfevent;
 
   var createRow = function(data) {
     // Create a new table row element
@@ -51,10 +54,11 @@ $(document).ready(function() {
     //alert("index is:" + index);
 
     var valueButton = $(this).attr("data-letter");
-    alert($(this).text());
+    //alert($(this).text());
     if ($(this).text() === "Edit") {
       var lastData = JSON.parse(localStorage.getItem("value"));
-      alert(lastData.data);
+      alert("Old data in local storage is:" + lastData.data);
+
       $(".event")
         .eq(3)
         .text("hard coding");
@@ -72,19 +76,40 @@ $(document).ready(function() {
       var data = $(".event")
         .eq(selected)
         .val();
-      var timeOfevent = valueButton;
+      timeOfevent = valueButton;
 
-      alert("Inputted data is: " + data);
-      dataObject.data += data;
-      dataObject.timeOfevent += timeOfevent;
+      // alert("Inputted data is: " + data);
+      // dataObject.data += data;
+      // dataObject.timeOfevent += timeOfevent;
+
+      sch.push(data, timeOfevent);
+      alert("All Values direct in array is: " + sch);
+      localStorage.setItem("schL", JSON.stringify(sch));
+      // localStorage.sch += JSON.stringify({
+      //   data: data,
+      //   timeOfEvent: timeOfevent
+      // });
+
+      var arrayValue = JSON.parse(localStorage.getItem("schL"));
 
       alert(
-        "Data stored in object is: " + dataObject.data + dataObject.timeOfevent
+        "Data accessed from array is: " +
+          arrayValue[2] +
+          "Timer is: " +
+          arrayValue[3]
       );
-      localStorage.setItem("value", JSON.stringify(dataObject));
 
-      var lastData = JSON.parse(localStorage.getItem("value"));
-      alert("fIRST DATA ONLY." + lastData.data + "And" + lastData.timeOfevent);
+      // localStorage.scheduler += alert(
+      //   "Data stored in object is: " +
+      //     dataObject.data[3] +
+      //     dataObject.timeOfevent[3]
+      // );
+
+      // localStorage.setItem("value", JSON.stringify(dataObject));
+
+      // var lastData = JSON.parse(localStorage.getItem("value"));
+
+      // alert("fIRST DATA ONLY." + lastData.data + "And" + lastData.timeOfevent);
       $(".event")
         .eq(selected)
         .attr("disabled", true);
