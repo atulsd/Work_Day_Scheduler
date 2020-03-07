@@ -4,12 +4,25 @@ $(document).ready(function() {
   var slots = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   var selected;
   var dataObject = { data: "", timeOfevent: "" };
-  var sch = [];
+  var storageData = {
+    one: "this is one",
+    two: "2",
+    three: "3",
+    four: "4",
+    nine: "5",
+    ten: "6",
+    eleven: "7",
+    twelve: "8"
+  };
+
+  var storeData = { time: "", event: "" };
   var data;
   var timeOfevent;
-  var arrayValue;
+  var arrayValue = [];
+  var allValues = [];
 
   changeColor();
+
   var createRow = function(data) {
     // Create a new table row element
     var tRow;
@@ -17,10 +30,11 @@ $(document).ready(function() {
     var letterBtn;
 
     var textEvent;
-
+    alert(storageData.one);
     for (var i = 0; i < timeUse.length; i++) {
       //tRow = $("<tr>");
       //alert(time[i]);
+
       tRow = $("<tr>");
       tRow.addClass("table-secondary");
 
@@ -29,6 +43,7 @@ $(document).ready(function() {
       //   inputBox.attr("readonly", false);
       inputBox.attr("disabled", true);
       inputBox.attr("data-text", timeUse[i]);
+      //inputBox.text(storageData.one);
       //alert("data text is " + inputBox.attr("data-text"));
       letterBtn = $("<button>");
       letterBtn.addClass("btn btn-success btn-choice");
@@ -46,7 +61,8 @@ $(document).ready(function() {
       $("tbody").append(tRow);
       //$("<br>");
     }
-    arrayValue = JSON.parse(localStorage.getItem("schL"));
+    inputValues();
+    //arrayValue = JSON.parse(vallocalStorage.getItem("schL"));
   };
   createRow();
 
@@ -64,7 +80,7 @@ $(document).ready(function() {
 
       $(".event")
         .eq(3)
-        .text("hard coding");
+        .val("hard coding");
       for (var i = 0; i < timeUse.length; i++) {
         if (timeUse[i] === parseInt(valueButton)) {
           selected = slots[i];
@@ -85,23 +101,39 @@ $(document).ready(function() {
       // dataObject.data += data;
       // dataObject.timeOfevent += timeOfevent;
 
-      sch.push(data, timeOfevent);
-      alert("All Values direct in array is: " + sch);
-      localStorage.setItem("schL", JSON.stringify(sch));
+      storeData.time = timeOfevent;
+      storeData.event = data;
+      //storeData.push(data, timeOfevent);
+      alert("All Values direct in array is: " + storeData);
+      //localStorage.setItem("storedData{data,}", JSON.stringify(storeData));
       // localStorage.sch += JSON.stringify({
       //   data: data,
       //   timeOfEvent: timeOfevent
       // });
 
-      arrayValue = JSON.parse(localStorage.getItem("schL"));
+      arrayValue = JSON.parse(localStorage.getItem("storedData"));
+      allValues += arrayValue;
+      alert(
+        "Data accessed from array storeData before local storage: " +
+          storeData.time +
+          "Timer is: " +
+          storeData.event
+      );
 
       alert(
-        "Data accessed from array is: " +
-          arrayValue[0] +
+        "Data accessed from array arrayValue after local storage: " +
+          arrayValue.time +
           "Timer is: " +
-          arrayValue[1]
+          arrayValue.event
       );
-      location.reload(true);
+
+      alert(
+        "Data accessed from array allValues after local storage: " +
+          allValues.time +
+          "Timer is: " +
+          allValues.event
+      );
+
       // localStorage.scheduler += alert(
       //   "Data stored in object is: " +
       //     dataObject.data[3] +
@@ -113,10 +145,7 @@ $(document).ready(function() {
       // var lastData = JSON.parse(localStorage.getItem("value"));
 
       // alert("fIRST DATA ONLY." + lastData.data + "And" + lastData.timeOfevent);
-      $(".event")
-        .eq(selected)
-        .attr("disabled", true);
-      $(this).text("Edit");
+      saveData();
     }
 
     // var valueButton1 = inputBox.attr("data-text");
@@ -130,5 +159,45 @@ $(document).ready(function() {
   function changeColor() {
     var liveTime = moment().format("LTS");
     $("#currentDay").text(moment().format("dddd,  MMMM Do YYYY"));
+  }
+
+  function inputValues() {
+    $(".event")
+      .eq(0)
+      .val(storageData.one);
+    $(".event")
+      .eq(1)
+      .val(storageData.two);
+    $(".event")
+      .eq(2)
+      .val(storageData.three);
+    $(".event")
+      .eq(3)
+      .val(storageData.four);
+    $(".event")
+      .eq(4)
+      .val(storageData.nine);
+    $(".event")
+      .eq(5)
+      .val(storageData.ten);
+    $(".event")
+      .eq(6)
+      .val(storageData.eleven);
+    $(".event")
+      .eq(7)
+      .val(storageData.twelve);
+  }
+
+  function saveData() {
+    var proceed = confirm(
+      "You have pressed save. \n Page is reloading. \n Any unsaved data will be lost. \n Do you want to proceed."
+    );
+    if (proceed) {
+      location.reload(true);
+      $(".event")
+        .eq(selected)
+        .attr("disabled", true);
+      $(this).text("Edit");
+    }
   }
 });
