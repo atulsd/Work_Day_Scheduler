@@ -1,6 +1,6 @@
 # Work_Day_Scheduler
 
-Project Title: Code Quiz
+Project Title: Work Day Scheduler
 
 Table of Contents:
 
