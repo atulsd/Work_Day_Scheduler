@@ -184,13 +184,6 @@ $(document).ready(function() {
     // alert("input box" + valueButton1);
     // alert("first child" + valueText);
   });
-  function changeColor() {
-    var liveTime = moment().format("LTS");
-    $("#currentDay").text(moment().format("dddd,  MMMM Do YYYY"));
-
-    alert(moment().format("hh:mm:ss a"));
-    startTimer();
-  }
 
   function inputValues() {
     storageData = JSON.parse(localStorage.getItem("storedData"));
@@ -263,6 +256,13 @@ $(document).ready(function() {
     localStorage.setItem("storedData", JSON.stringify(storageData));
   }
 
+  function changeColor() {
+    var liveTime = moment().format("LTS");
+    $("#currentDay").text(moment().format("dddd,  MMMM Do YYYY"));
+    alert(moment().format("hh:mm:ss a"));
+    startTimer();
+  }
+
   function startTimer() {
     var interval = setInterval(function() {
       renderTime();
@@ -272,15 +272,30 @@ $(document).ready(function() {
   function renderTime() {
     getSeconds = moment().format("ss");
     //alert("Seconds are:" + getSeconds);
-    if (getSeconds === "30") {
+    if (getSeconds === "40") {
       getSeconds = moment().format("ss");
       var getHours = moment().format("hh");
+      var aP = moment().format("a");
       alert("HOurs are:" + getHours);
+      aP = "am";
+      getHours = 9;
+      if (aP === "am" && getHours === 9) {
+        $(".table-secondary")
+          .eq(0)
+          .addClass("table-success");
+
+        alert("ouchhhhh it's after hours.");
+        for (var i = 1; i < 8; i++) {
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-danger");
+        }
+      }
       if (getHours === "11") {
         alert("It's 11PM mate.");
         $(".table-secondary")
           .eq(0)
-          .addClass("table-info");
+          .addClass("table-danger");
       }
     }
   }
