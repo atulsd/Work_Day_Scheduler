@@ -30,6 +30,7 @@ $(document).ready(function() {
   var timeOfevent;
   var arrayValue = [];
   var allValues = [];
+  var getSeconds = moment().format("ss");
 
   changeColor();
 
@@ -40,11 +41,7 @@ $(document).ready(function() {
     var letterBtn;
 
     var textEvent;
-    //alert(storageData.one);
     for (var i = 0; i < timeUse.length; i++) {
-      //tRow = $("<tr>");
-      //alert(time[i]);
-
       tRow = $("<tr>");
       tRow.addClass("table-secondary");
       tRow.attr("data-row", timeUse[i]);
@@ -192,19 +189,7 @@ $(document).ready(function() {
     $("#currentDay").text(moment().format("dddd,  MMMM Do YYYY"));
 
     alert(moment().format("hh:mm:ss a"));
-
-    // function startTimer() {
-    //   interval = setInterval(function() {
-    //     renderTime();
-    //   }, 1000);
-    // }
-    // function renderTime() {
-    //   timeStart--;
-    //   if (timeStart <= 0) {
-    //     location.href = "highscores.html";
-    //   }
-    //   timer.textContent = timeStart;
-    // }
+    startTimer();
   }
 
   function inputValues() {
@@ -276,5 +261,27 @@ $(document).ready(function() {
       .eq(7)
       .val();
     localStorage.setItem("storedData", JSON.stringify(storageData));
+  }
+
+  function startTimer() {
+    var interval = setInterval(function() {
+      renderTime();
+    }, 1000);
+  }
+
+  function renderTime() {
+    getSeconds = moment().format("ss");
+    //alert("Seconds are:" + getSeconds);
+    if (getSeconds === "30") {
+      getSeconds = moment().format("ss");
+      var getHours = moment().format("hh");
+      alert("HOurs are:" + getHours);
+      if (getHours === "11") {
+        alert("It's 11PM mate.");
+        $(".table-secondary")
+          .eq(0)
+          .addClass("table-info");
+      }
+    }
   }
 });
