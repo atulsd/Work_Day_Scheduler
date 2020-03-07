@@ -40,13 +40,14 @@ $(document).ready(function() {
     var letterBtn;
 
     var textEvent;
-    alert(storageData.one);
+    //alert(storageData.one);
     for (var i = 0; i < timeUse.length; i++) {
       //tRow = $("<tr>");
       //alert(time[i]);
 
       tRow = $("<tr>");
       tRow.addClass("table-secondary");
+      tRow.attr("data-row", timeUse[i]);
 
       inputBox = $("<input>");
       inputBox.addClass("event");
@@ -55,6 +56,7 @@ $(document).ready(function() {
       inputBox.attr("data-text", timeDisplay[i]);
       //inputBox.text(storageData.one);
       //alert("data text is " + inputBox.attr("data-text"));
+
       letterBtn = $("<button>");
       letterBtn.addClass("btn btn-success btn-choice");
       letterBtn.attr("data-letter", timeUse[i]);
@@ -76,7 +78,12 @@ $(document).ready(function() {
     //arrayValue = JSON.parse(vallocalStorage.getItem("schL"));
   };
   createRow();
-
+  // $(".table-secondary").on("click", function() {
+  //   alert("Row selected is:" + $(this).attr("data-row"));
+  //   $(".table-secondary")
+  //     .eq(0)
+  //     .addClass("table-danger");
+  // });
   $(".btn").on("click", function() {
     //var element = event.target;
 
@@ -92,12 +99,23 @@ $(document).ready(function() {
       // $(".event")
       //   .eq(3)
       //   .val("hard coding");
+      // $(this)
+      //   .eq(2)
+      //   .addClass("table-danger");
+      //.attr("data-row").background-color:#000;
+      //.addClass("table-danger");
+      //.css("background-color", "#000");
+
       for (var i = 0; i < timeUse.length; i++) {
         if (timeUse[i] === parseInt(valueButton)) {
           selected = slots[i];
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-info");
           //        alert("Selected is: " + selected);
         }
       }
+
       $(".event")
         .eq(selected)
         .attr("disabled", false);
@@ -172,6 +190,21 @@ $(document).ready(function() {
   function changeColor() {
     var liveTime = moment().format("LTS");
     $("#currentDay").text(moment().format("dddd,  MMMM Do YYYY"));
+
+    alert(moment().format("hh:mm:ss a"));
+
+    // function startTimer() {
+    //   interval = setInterval(function() {
+    //     renderTime();
+    //   }, 1000);
+    // }
+    // function renderTime() {
+    //   timeStart--;
+    //   if (timeStart <= 0) {
+    //     location.href = "highscores.html";
+    //   }
+    //   timer.textContent = timeStart;
+    // }
   }
 
   function inputValues() {
