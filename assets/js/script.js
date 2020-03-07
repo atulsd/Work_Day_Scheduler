@@ -7,7 +7,9 @@ $(document).ready(function() {
   var sch = [];
   var data;
   var timeOfevent;
+  var arrayValue;
 
+  changeColor();
   var createRow = function(data) {
     // Create a new table row element
     var tRow;
@@ -44,6 +46,7 @@ $(document).ready(function() {
       $("tbody").append(tRow);
       //$("<br>");
     }
+    arrayValue = JSON.parse(localStorage.getItem("schL"));
   };
   createRow();
 
@@ -90,15 +93,15 @@ $(document).ready(function() {
       //   timeOfEvent: timeOfevent
       // });
 
-      var arrayValue = JSON.parse(localStorage.getItem("schL"));
+      arrayValue = JSON.parse(localStorage.getItem("schL"));
 
       alert(
         "Data accessed from array is: " +
-          arrayValue[2] +
+          arrayValue[0] +
           "Timer is: " +
-          arrayValue[3]
+          arrayValue[1]
       );
-
+      location.reload(true);
       // localStorage.scheduler += alert(
       //   "Data stored in object is: " +
       //     dataObject.data[3] +
@@ -124,4 +127,8 @@ $(document).ready(function() {
     // alert("input box" + valueButton1);
     // alert("first child" + valueText);
   });
+  function changeColor() {
+    var liveTime = moment().format("LTS");
+    $("#currentDay").text(moment().format("dddd,  MMMM Do YYYY"));
+  }
 });
