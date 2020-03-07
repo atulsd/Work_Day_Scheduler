@@ -1,7 +1,17 @@
 $(document).ready(function() {
   var inputBox;
+  var timeDisplay = [
+    "9 A.M.",
+    "10 A.M.",
+    "11 A.M.",
+    "12 P.M.",
+    "1 P.M.",
+    "2 P.M.",
+    "3 P.M.",
+    "4 P.M."
+  ];
   var timeUse = [9, 10, 11, 12, 1, 2, 3, 4];
-  var slots = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  var slots = [0, 1, 2, 3, 4, 5, 6, 7];
   var selected;
   var dataObject = { data: "", timeOfevent: "" };
   var storageData = {
@@ -42,7 +52,7 @@ $(document).ready(function() {
       inputBox.addClass("event");
       //   inputBox.attr("readonly", false);
       inputBox.attr("disabled", true);
-      inputBox.attr("data-text", timeUse[i]);
+      inputBox.attr("data-text", timeDisplay[i]);
       //inputBox.text(storageData.one);
       //alert("data text is " + inputBox.attr("data-text"));
       letterBtn = $("<button>");
@@ -50,7 +60,7 @@ $(document).ready(function() {
       letterBtn.attr("data-letter", timeUse[i]);
       letterBtn.text("Edit");
 
-      var time = $("<td>").text(timeUse[i]);
+      var time = $("<td>").text(timeDisplay[i]);
       var event = $("<td>").append(inputBox);
       var status = $("<td>").append(letterBtn);
 
@@ -169,12 +179,6 @@ $(document).ready(function() {
     $(".event")
       .eq(0)
       .val(storageData.one);
-    alert(
-      "Input values on load" +
-        $(".event")
-          .eq(0)
-          .val(storageData.one)
-    );
     $(".event")
       .eq(1)
       .val(storageData.two);
