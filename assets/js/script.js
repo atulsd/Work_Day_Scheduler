@@ -1,28 +1,28 @@
 $(document).ready(function() {
   var inputBox;
   var timeDisplay = [
-    "9 A.M.",
-    "10 A.M.",
-    "11 A.M.",
-    "12 P.M.",
-    "1 P.M.",
-    "2 P.M.",
-    "3 P.M.",
-    "4 P.M."
+    "9 A.M. - 10 A.M.",
+    "10 A.M. - 11 A.M.",
+    "11 A.M. - 12 P. M.",
+    "12 P.M. - 1 P.M.",
+    "1 P.M. - 2 P.M.",
+    "2 P.M. - 3 P.M.",
+    "3 P.M. - 4 P.M.",
+    "4 P.M. - 5 P.M."
   ];
   var timeUse = [9, 10, 11, 12, 1, 2, 3, 4];
   var slots = [0, 1, 2, 3, 4, 5, 6, 7];
   var selected;
   var dataObject = { data: "", timeOfevent: "" };
   var storageData = {
-    one: "",
-    two: "",
-    three: "",
-    four: "",
-    nine: "",
-    ten: "",
-    eleven: "",
-    twelve: ""
+    one: "Add event here",
+    two: "Add event here",
+    three: "Add event here",
+    four: "Add event here",
+    nine: "Add event here",
+    ten: "Add event here",
+    eleven: "Add event here",
+    twelve: "Add event here"
   };
 
   var storeData = { time: "", event: "" };
@@ -33,7 +33,6 @@ $(document).ready(function() {
   var getSeconds = moment().format("ss");
 
   changeColor();
-
   var createRow = function(data) {
     // Create a new table row element
     var tRow;
@@ -48,11 +47,8 @@ $(document).ready(function() {
 
       inputBox = $("<input>");
       inputBox.addClass("event");
-      //   inputBox.attr("readonly", false);
       inputBox.attr("disabled", true);
       inputBox.attr("data-text", timeDisplay[i]);
-      //inputBox.text(storageData.one);
-      //alert("data text is " + inputBox.attr("data-text"));
 
       letterBtn = $("<button>");
       letterBtn.addClass("btn btn-success btn-choice");
@@ -63,56 +59,27 @@ $(document).ready(function() {
       var event = $("<td>").append(inputBox);
       var status = $("<td>").append(letterBtn);
 
-      //var status = $(".btn").text("Edit");
       // Append the newly created table data to the table row
       tRow.append(time, event, status);
       // Append the table row to the table body
       $("tbody").append(tRow);
-      //$("<br>");
     }
     inputValues();
-    //    alert("calling function to input values");
-    //arrayValue = JSON.parse(vallocalStorage.getItem("schL"));
   };
   createRow();
-  // $(".table-secondary").on("click", function() {
-  //   alert("Row selected is:" + $(this).attr("data-row"));
-  //   $(".table-secondary")
-  //     .eq(0)
-  //     .addClass("table-danger");
-  // });
+
   $(".btn").on("click", function() {
-    //var element = event.target;
-
-    //  var index = element.getAttribute("data-letter");
-    //alert("index is:" + index);
-
     var valueButton = $(this).attr("data-letter");
     //alert($(this).text());
     if ($(this).text() === "Edit") {
-      //  var lastData = JSON.parse(localStorage.getItem("value"));
-      //alert("Old data in local storage is:" + lastData.data);
-
-      // $(".event")
-      //   .eq(3)
-      //   .val("hard coding");
-      // $(this)
-      //   .eq(2)
-      //   .addClass("table-danger");
-      //.attr("data-row").background-color:#000;
-      //.addClass("table-danger");
-      //.css("background-color", "#000");
-
       for (var i = 0; i < timeUse.length; i++) {
         if (timeUse[i] === parseInt(valueButton)) {
           selected = slots[i];
           $(".table-secondary")
             .eq(i)
             .addClass("table-info");
-          //        alert("Selected is: " + selected);
         }
       }
-
       $(".event")
         .eq(selected)
         .attr("disabled", false);
@@ -121,73 +88,13 @@ $(document).ready(function() {
       var data = $(".event")
         .eq(selected)
         .val();
-      //timeOfevent = valueButton;
-
-      // alert("Inputted data is: " + data);
-      // dataObject.data += data;
-      // dataObject.timeOfevent += timeOfevent;
-
-      //storeData.time = timeOfevent;
-      //storeData.event = data;
-      //storeData.push(data, timeOfevent);
-      //alert("All Values direct in array is: " + storeData);
-      //localStorage.setItem("storedData{data,}", JSON.stringify(storeData));
-      // localStorage.sch += JSON.stringify({
-      //   data: data,
-      //   timeOfEvent: timeOfevent
-      // });
-
-      //localStorage.setItem("storedData", JSON.stringify(storedData));
-
-      // arrayValue = JSON.parse(localStorage.getItem("storedData"));
-      // allValues += arrayValue;
-      // alert(
-      //   "Data accessed from array storeData before local storage: " +
-      //     storeData.time +
-      //     "Timer is: " +
-      //     storeData.event
-      // );
-
-      // alert(
-      //   "Data accessed from array arrayValue after local storage: " +
-      //     arrayValue.time +
-      //     "Timer is: " +
-      //     arrayValue.event
-      // );
-
-      // alert(
-      //   "Data accessed from array allValues after local storage: " +
-      //     allValues.time +
-      //     "Timer is: " +
-      //     allValues.event
-      // );
-
-      // localStorage.scheduler += alert(
-      //   "Data stored in object is: " +
-      //     dataObject.data[3] +
-      //     dataObject.timeOfevent[3]
-      // );
-
-      // localStorage.setItem("value", JSON.stringify(dataObject));
-
-      // var lastData = JSON.parse(localStorage.getItem("value"));
-
-      // alert("fIRST DATA ONLY." + lastData.data + "And" + lastData.timeOfevent);
       saveData();
     }
-
-    // var valueButton1 = inputBox.attr("data-text");
-    // var valueText = $(".event")
-    //   .first()
-    //   .attr("data-text");
-    // alert("button" + valueButton);
-    // alert("input box" + valueButton1);
-    // alert("first child" + valueText);
   });
 
   function inputValues() {
-    storageData = JSON.parse(localStorage.getItem("storedData"));
-    if (storageData) {
+    if (localStorage.getItem("start") === "1") {
+      storageData = JSON.parse(localStorage.getItem("storedData"));
       $(".event")
         .eq(0)
         .val(storageData.one);
@@ -212,13 +119,37 @@ $(document).ready(function() {
       $(".event")
         .eq(7)
         .val(storageData.twelve);
+    } else {
+      $(".event")
+        .eq(0)
+        .val(storageData.one);
+      $(".event")
+        .eq(1)
+        .val(storageData.two);
+      $(".event")
+        .eq(2)
+        .val(storageData.three);
+      $(".event")
+        .eq(3)
+        .val(storageData.four);
+      $(".event")
+        .eq(4)
+        .val(storageData.nine);
+      $(".event")
+        .eq(5)
+        .val(storageData.ten);
+      $(".event")
+        .eq(6)
+        .val(storageData.eleven);
+      $(".event")
+        .eq(7)
+        .val(storageData.twelve);
+      localStorage.setItem("start", "1");
     }
   }
 
   function saveData() {
-    var proceed = confirm(
-      "You have pressed save. \n Page is reloading. \n Any unsaved data will be lost. \n Do you want to proceed."
-    );
+    var proceed = confirm("Do you want to proceed.");
     if (proceed) {
       saveTolocalstorage();
       location.reload(true);
@@ -259,9 +190,7 @@ $(document).ready(function() {
   }
 
   function changeColor() {
-    var liveTime = moment().format("LTS");
     $("#currentDay").text(moment().format("dddd,  MMMM Do YYYY"));
-    alert(moment().format("hh:mm:ss a"));
     startTimer();
   }
 
@@ -272,32 +201,143 @@ $(document).ready(function() {
   }
 
   function renderTime() {
-    getSeconds = moment().format("ss");
-    //alert("Seconds are:" + getSeconds);
-    if (getSeconds === "40") {
-      getSeconds = moment().format("ss");
-      var getHours = moment().format("hh");
-      var aP = moment().format("a");
-      alert("HOurs are:" + getHours);
-      aP = "am";
-      getHours = 9;
-      if (aP === "am" && getHours === 9) {
-        $(".table-secondary")
-          .eq(0)
-          .addClass("table-success");
+    var getHours = moment().format("hh");
+    var aP = moment().format("a");
 
-        alert("ouchhhhh it's after hours.");
-        for (var i = 1; i < 8; i++) {
+    if (aP === "am" && getHours === "09") {
+      $(".table-secondary")
+        .eq(0)
+        .addClass("table-success");
+      for (var i = 1; i < 8; i++) {
+        $(".table-secondary")
+          .eq(i)
+          .addClass("table-danger");
+      }
+    }
+
+    if (aP === "am" && getHours === "10") {
+      $(".table-secondary")
+        .eq(1)
+        .addClass("table-success");
+      for (var i = 0; i < 8; i++) {
+        if (i === 0) {
+          $(".table-secondary")
+            .eq(0)
+            .addClass("table-warning");
+        }
+        if (i > 1) {
           $(".table-secondary")
             .eq(i)
             .addClass("table-danger");
         }
       }
-      if (getHours === "11") {
-        alert("It's 11PM mate.");
-        $(".table-secondary")
-          .eq(0)
-          .addClass("table-danger");
+    }
+
+    if (aP === "am" && getHours === "11") {
+      $(".table-secondary")
+        .eq(2)
+        .addClass("table-success");
+      for (var i = 0; i < 8; i++) {
+        if (i <= 1) {
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-warning");
+        }
+        if (i > 2) {
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-danger");
+        }
+      }
+    }
+
+    if (aP === "pm" && getHours === "12") {
+      $(".table-secondary")
+        .eq(3)
+        .addClass("table-success");
+      for (var i = 0; i < 8; i++) {
+        if (i <= 2) {
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-warning");
+        }
+        if (i > 3) {
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-danger");
+        }
+      }
+    }
+
+    if (aP === "pm" && getHours === "01") {
+      $(".table-secondary")
+        .eq(4)
+        .addClass("table-success");
+      for (var i = 0; i < 8; i++) {
+        if (i <= 3) {
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-warning");
+        }
+        if (i > 4) {
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-danger");
+        }
+      }
+    }
+
+    if (aP === "pm" && getHours === "02") {
+      $(".table-secondary")
+        .eq(5)
+        .addClass("table-success");
+      for (var i = 0; i < 8; i++) {
+        if (i <= 4) {
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-warning");
+        }
+        if (i > 5) {
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-danger");
+        }
+      }
+    }
+
+    if (aP === "pm" && getHours === "03") {
+      $(".table-secondary")
+        .eq(6)
+        .addClass("table-success");
+      for (var i = 0; i < 8; i++) {
+        if (i <= 5) {
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-warning");
+        }
+        if (i > 6) {
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-danger");
+        }
+      }
+    }
+
+    if (aP === "pm" && getHours === "04") {
+      $(".table-secondary")
+        .eq(6)
+        .addClass("table-success");
+      for (var i = 0; i < 8; i++) {
+        if (i <= 6) {
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-warning");
+        }
+        if (i > 7) {
+          $(".table-secondary")
+            .eq(i)
+            .addClass("table-danger");
+        }
       }
     }
   }
