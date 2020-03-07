@@ -1,18 +1,18 @@
 $(document).ready(function() {
   var inputBox;
-  var timeUse = [9, 10, 11, 12, 1, 2, 3, 4, 5];
+  var timeUse = [9, 10, 11, 12, 1, 2, 3, 4];
   var slots = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   var selected;
   var dataObject = { data: "", timeOfevent: "" };
   var storageData = {
-    one: "this is one",
-    two: "2",
-    three: "3",
-    four: "4",
-    nine: "5",
-    ten: "6",
-    eleven: "7",
-    twelve: "8"
+    one: "",
+    two: "",
+    three: "",
+    four: "",
+    nine: "",
+    ten: "",
+    eleven: "",
+    twelve: ""
   };
 
   var storeData = { time: "", event: "" };
@@ -62,6 +62,7 @@ $(document).ready(function() {
       //$("<br>");
     }
     inputValues();
+    //    alert("calling function to input values");
     //arrayValue = JSON.parse(vallocalStorage.getItem("schL"));
   };
   createRow();
@@ -75,16 +76,16 @@ $(document).ready(function() {
     var valueButton = $(this).attr("data-letter");
     //alert($(this).text());
     if ($(this).text() === "Edit") {
-      var lastData = JSON.parse(localStorage.getItem("value"));
-      alert("Old data in local storage is:" + lastData.data);
+      //  var lastData = JSON.parse(localStorage.getItem("value"));
+      //alert("Old data in local storage is:" + lastData.data);
 
-      $(".event")
-        .eq(3)
-        .val("hard coding");
+      // $(".event")
+      //   .eq(3)
+      //   .val("hard coding");
       for (var i = 0; i < timeUse.length; i++) {
         if (timeUse[i] === parseInt(valueButton)) {
           selected = slots[i];
-          alert("Selected is: " + selected);
+          //        alert("Selected is: " + selected);
         }
       }
       $(".event")
@@ -95,44 +96,46 @@ $(document).ready(function() {
       var data = $(".event")
         .eq(selected)
         .val();
-      timeOfevent = valueButton;
+      //timeOfevent = valueButton;
 
       // alert("Inputted data is: " + data);
       // dataObject.data += data;
       // dataObject.timeOfevent += timeOfevent;
 
-      storeData.time = timeOfevent;
-      storeData.event = data;
+      //storeData.time = timeOfevent;
+      //storeData.event = data;
       //storeData.push(data, timeOfevent);
-      alert("All Values direct in array is: " + storeData);
+      //alert("All Values direct in array is: " + storeData);
       //localStorage.setItem("storedData{data,}", JSON.stringify(storeData));
       // localStorage.sch += JSON.stringify({
       //   data: data,
       //   timeOfEvent: timeOfevent
       // });
 
-      arrayValue = JSON.parse(localStorage.getItem("storedData"));
-      allValues += arrayValue;
-      alert(
-        "Data accessed from array storeData before local storage: " +
-          storeData.time +
-          "Timer is: " +
-          storeData.event
-      );
+      //localStorage.setItem("storedData", JSON.stringify(storedData));
 
-      alert(
-        "Data accessed from array arrayValue after local storage: " +
-          arrayValue.time +
-          "Timer is: " +
-          arrayValue.event
-      );
+      // arrayValue = JSON.parse(localStorage.getItem("storedData"));
+      // allValues += arrayValue;
+      // alert(
+      //   "Data accessed from array storeData before local storage: " +
+      //     storeData.time +
+      //     "Timer is: " +
+      //     storeData.event
+      // );
 
-      alert(
-        "Data accessed from array allValues after local storage: " +
-          allValues.time +
-          "Timer is: " +
-          allValues.event
-      );
+      // alert(
+      //   "Data accessed from array arrayValue after local storage: " +
+      //     arrayValue.time +
+      //     "Timer is: " +
+      //     arrayValue.event
+      // );
+
+      // alert(
+      //   "Data accessed from array allValues after local storage: " +
+      //     allValues.time +
+      //     "Timer is: " +
+      //     allValues.event
+      // );
 
       // localStorage.scheduler += alert(
       //   "Data stored in object is: " +
@@ -162,9 +165,16 @@ $(document).ready(function() {
   }
 
   function inputValues() {
+    storageData = JSON.parse(localStorage.getItem("storedData"));
     $(".event")
       .eq(0)
       .val(storageData.one);
+    alert(
+      "Input values on load" +
+        $(".event")
+          .eq(0)
+          .val(storageData.one)
+    );
     $(".event")
       .eq(1)
       .val(storageData.two);
@@ -193,11 +203,41 @@ $(document).ready(function() {
       "You have pressed save. \n Page is reloading. \n Any unsaved data will be lost. \n Do you want to proceed."
     );
     if (proceed) {
+      saveTolocalstorage();
       location.reload(true);
       $(".event")
         .eq(selected)
         .attr("disabled", true);
       $(this).text("Edit");
+      inputValues();
     }
+  }
+
+  function saveTolocalstorage() {
+    storageData.one = $(".event")
+      .eq(0)
+      .val();
+    storageData.two = $(".event")
+      .eq(1)
+      .val();
+    storageData.three = $(".event")
+      .eq(2)
+      .val();
+    storageData.four = $(".event")
+      .eq(3)
+      .val();
+    storageData.nine = $(".event")
+      .eq(4)
+      .val();
+    storageData.ten = $(".event")
+      .eq(5)
+      .val();
+    storageData.eleven = $(".event")
+      .eq(6)
+      .val();
+    storageData.twelve = $(".event")
+      .eq(7)
+      .val();
+    localStorage.setItem("storedData", JSON.stringify(storageData));
   }
 });
