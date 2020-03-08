@@ -70,7 +70,7 @@ $(document).ready(function() {
 
   $(".btn").on("click", function() {
     var valueButton = $(this).attr("data-letter");
-    //alert($(this).text());
+
     if ($(this).text() === "Edit") {
       for (var i = 0; i < timeUse.length; i++) {
         if (timeUse[i] === parseInt(valueButton)) {
@@ -93,8 +93,8 @@ $(document).ready(function() {
   });
 
   function inputValues() {
-    if (localStorage.getItem("start") === "1") {
-      storageData = JSON.parse(localStorage.getItem("storedData"));
+    storageData = JSON.parse(localStorage.getItem("storedData"));
+    if (localStorage.getItem("start") === "1" && storageData != null) {
       $(".event")
         .eq(0)
         .val(storageData.one);
@@ -119,7 +119,18 @@ $(document).ready(function() {
       $(".event")
         .eq(7)
         .val(storageData.twelve);
-    } else {
+    } else if (storageData === null) {
+      storageData = {
+        one: "Add event here",
+        two: "Add event here",
+        three: "Add event here",
+        four: "Add event here",
+        nine: "Add event here",
+        ten: "Add event here",
+        eleven: "Add event here",
+        twelve: "Add event here"
+      };
+
       $(".event")
         .eq(0)
         .val(storageData.one);
@@ -203,11 +214,27 @@ $(document).ready(function() {
   function renderTime() {
     var getHours = moment().format("hh");
     var aP = moment().format("a");
+    var getMinutes = moment().format("mm");
+    var getSeconds = moment().format("ss");
 
     if (aP === "am" && getHours === "09") {
+      if (getMinutes === "00" && getSeconds === "00") {
+        location.reload(true);
+        storageData = {
+          one: "Add event here",
+          two: "Add event here",
+          three: "Add event here",
+          four: "Add event here",
+          nine: "Add event here",
+          ten: "Add event here",
+          eleven: "Add event here",
+          twelve: "Add event here"
+        };
+        localStorage.setItem("storedData", JSON.stringify(storageData));
+      }
       $(".table-secondary")
         .eq(0)
-        .addClass("table-success");
+        .addClass("table-secondary");
       for (var i = 1; i < 8; i++) {
         $(".table-secondary")
           .eq(i)
@@ -216,6 +243,9 @@ $(document).ready(function() {
     }
 
     if (aP === "am" && getHours === "10") {
+      if (getMinutes === "00" && getSeconds === "00") {
+        location.reload(true);
+      }
       $(".table-secondary")
         .eq(1)
         .addClass("table-success");
@@ -234,6 +264,9 @@ $(document).ready(function() {
     }
 
     if (aP === "am" && getHours === "11") {
+      if (getMinutes === "00" && getSeconds === "00") {
+        location.reload(true);
+      }
       $(".table-secondary")
         .eq(2)
         .addClass("table-success");
@@ -252,6 +285,9 @@ $(document).ready(function() {
     }
 
     if (aP === "pm" && getHours === "12") {
+      if (getMinutes === "00" && getSeconds === "00") {
+        location.reload(true);
+      }
       $(".table-secondary")
         .eq(3)
         .addClass("table-success");
@@ -270,6 +306,9 @@ $(document).ready(function() {
     }
 
     if (aP === "pm" && getHours === "01") {
+      if (getMinutes === "00" && getSeconds === "00") {
+        location.reload(true);
+      }
       $(".table-secondary")
         .eq(4)
         .addClass("table-success");
@@ -288,6 +327,9 @@ $(document).ready(function() {
     }
 
     if (aP === "pm" && getHours === "02") {
+      if (getMinutes === "00" && getSeconds === "00") {
+        location.reload(true);
+      }
       $(".table-secondary")
         .eq(5)
         .addClass("table-success");
@@ -306,6 +348,9 @@ $(document).ready(function() {
     }
 
     if (aP === "pm" && getHours === "03") {
+      if (getMinutes === "00" && getSeconds === "00") {
+        location.reload(true);
+      }
       $(".table-secondary")
         .eq(6)
         .addClass("table-success");
@@ -324,6 +369,9 @@ $(document).ready(function() {
     }
 
     if (aP === "pm" && getHours === "04") {
+      if (getMinutes === "00" && getSeconds === "00") {
+        location.reload(true);
+      }
       $(".table-secondary")
         .eq(6)
         .addClass("table-success");
