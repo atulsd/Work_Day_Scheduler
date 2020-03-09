@@ -217,7 +217,7 @@ $(document).ready(function() {
     var getMinutes = moment().format("mm");
     var getSeconds = moment().format("ss");
 
-    if (aP === "am" && getHours === "09") {
+    if (aP === "am" && getHours === "12") {
       if (getMinutes === "00" && getSeconds === "00") {
         location.reload(true);
         storageData = {
@@ -232,9 +232,15 @@ $(document).ready(function() {
         };
         localStorage.setItem("storedData", JSON.stringify(storageData));
       }
+    }
+
+    if (aP === "am" && getHours === "09") {
+      if (getMinutes === "00" && getSeconds === "00") {
+        location.reload(true);
+      }
       $(".table-secondary")
         .eq(0)
-        .addClass("table-secondary");
+        .addClass("table-success");
       for (var i = 1; i < 8; i++) {
         $(".table-secondary")
           .eq(i)
